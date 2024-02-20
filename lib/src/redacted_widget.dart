@@ -10,7 +10,7 @@ extension Redacted on Widget {
   Widget redacted({
     required BuildContext context,
     required bool redact,
-    RedactedConfiguration? configuration,
+    RedactedConfiguration configuration = const GlowingRedactedConfiguration(),
   }) {
     if (!redact) return this;
     if (this is RedactedHideWidget) {
