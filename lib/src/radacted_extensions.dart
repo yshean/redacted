@@ -369,9 +369,11 @@ class __RedactedFillWidgetState extends State<_RedactedFillWidget> {
   @override
   void initState() {
     Future.delayed(widget.configuration.animationDuration, () {
-      setState(() {
-        colored = !colored;
-      });
+      if (mounted) {
+        setState(() {
+          colored = !colored;
+        });
+      }
     });
     super.initState();
   }
@@ -394,9 +396,11 @@ class __RedactedFillWidgetState extends State<_RedactedFillWidget> {
       ),
       child: widget.child,
       onEnd: () {
-        setState(() {
-          colored = !colored;
-        });
+        if (mounted) {
+          setState(() {
+            colored = !colored;
+          });
+        }
       },
     );
   }
@@ -427,10 +431,12 @@ class _MeasuredWidgetState extends State<MeasuredWidget> {
     return MeasureSize(
       onChange: (newSize) {
         if (size == null && newSize != Size.zero) {
-          setState(() {
-            size = newSize;
-            newChild = widget.onSizeLoaded(newSize) as Container;
-          });
+          if (mounted) {
+            setState(() {
+              size = newSize;
+              newChild = widget.onSizeLoaded(newSize) as Container;
+            });
+          }
         }
       },
       child: newChild == null

@@ -33,9 +33,11 @@ class _ExamplePageState extends State<ExamplePage> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(seconds: 3), () {
-        setState(() {
-          loading = false;
-        });
+        if (mounted) {
+          setState(() {
+            loading = false;
+          });
+        }
       });
     });
     super.initState();
@@ -45,10 +47,12 @@ class _ExamplePageState extends State<ExamplePage> {
   Widget build(BuildContext context) {
     if (loadingWidget == null) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          loadingWidget =
-              const ShoeWidget().redacted(context: context, redact: true);
-        });
+        if (mounted) {
+          setState(() {
+            loadingWidget =
+                const ShoeWidget().redacted(context: context, redact: true);
+          });
+        }
       });
     }
     return Scaffold(
